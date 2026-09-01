@@ -1,11 +1,17 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from app.core.config import settings
 from app.db import engine
-from app import models
+from app.init_db import init_db
 
-app = FastAPI(title=settings.app_name, version="0.1.0", description="NABU Personal Operating System API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    init_db()
+    yield
+
+app = FastAPI(title=settings.app_name, version="0.1.0", description="NABU Personal Operating System API", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_list, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 
 @app.get("/health")
