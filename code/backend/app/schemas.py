@@ -65,3 +65,11 @@ class TaskOut(TaskCreate):
     status: str
     actual_minutes: int
     completed: bool
+
+from app.schemas_extra import (
+    SkillCreate, SkillOut, SkillEvidenceCreate, SkillEvidenceOut,
+    TimeEntryCreate, TimeEntryUpdate, TimeEntryOut,
+    IncomeCreate, IncomeOut,
+    DailyReviewCreate, DailyReviewOut, WeeklyReviewCreate, WeeklyReviewOut,
+    ResearchCreate, ResearchUpdate, ResearchOut,
+)
